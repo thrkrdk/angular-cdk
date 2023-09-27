@@ -9,6 +9,7 @@
   .drop-down-input-active {
     &.mat-form-field-appearance-fill .mat-form-field-flex {
       background-color: mat-color($background, card);
+      color: white;
     }
   }
 

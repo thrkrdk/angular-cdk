@@ -8,6 +8,11 @@ $input-width: 35rem;
   width: $input-width;
 }
 
+.drop-down-input-active {
+  z-index: 1000000;
+  position: relative;
+}
+
 .drop-down-serch-panel {
   width: $input-width;
   min-height: 5rem;
