@@ -77,7 +77,7 @@
             ],
             "scripts": [{
               "input":  "src/config.js",
-              "bundleName": "deneme-compile.css",
+              "bundleName": "config",
               "inject": false
             } ]
           },
@@ -107,6 +107,12 @@
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
+                },
+                {
+                  "type":"bundle",
+                  "maximumWarning": "0",
+                  "maximumError": "10kb",
+                  "name": "config.js"
                 }
               ]
             }
