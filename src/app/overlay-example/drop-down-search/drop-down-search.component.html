@@ -1,6 +1,7 @@
 <mat-form-field
   appearance="fill"
   class="drop-down-input"
+  [class.drop-down-input-active] ="showPanel$ | async"
   cdkOverlayOrigin
   #originOverlay="cdkOverlayOrigin"
 >
@@ -11,8 +12,9 @@
 </mat-form-field>
 <ng-template
   cdkConnectedOverlay
+  cdkConnectedOverlayHasBackdrop
   [cdkConnectedOverlayOrigin]="originOverlay"
-  [cdkConnectedOverlayOpen]="isPanelVisble$ | async"
+  [cdkConnectedOverlayOpen]="showPanel$ | async"
 >
-  <section class="dropdown-search-panel mat-elevation-z1">My panel</section>
+  <section class=" drop-down-serch-panel  mat-elevation-z1">My panel</section>
 </ng-template>
