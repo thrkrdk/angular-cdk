@@ -57,9 +57,13 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "src/styles.scss",
-              "src/deneme.css"
+              {
+                "input":  "src/deneme.css",
+                "bundleName": "deneme-compile.css",
+                "inject": false
+              }
             ],
-            "scripts": []
+            "scripts": ["src/config.js" ]
           },
           "configurations": {
             "production": {
