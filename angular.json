@@ -110,9 +110,10 @@
                 },
                 {
                   "type":"bundle",
-                  "maximumWarning": "0",
+                  "maximumWarning": "20%",
                   "maximumError": "10kb",
-                  "name": "config.js"
+                  "name": "config.js",
+                  "baselin":"4kb"
                 }
               ]
             }
