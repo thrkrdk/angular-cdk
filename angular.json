@@ -63,7 +63,11 @@
                 "inject": false
               }
             ],
-            "scripts": ["src/config.js" ]
+            "scripts": [{
+              "input":  "src/config.js",
+              "bundleName": "deneme-compile.css",
+              "inject": false
+            } ]
           },
           "configurations": {
             "production": {
