@@ -25,6 +25,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSlideToggleModule,
     MatDividerModule,
     ReactiveFormsModule,
+    A11yModule
   ],
   exports: [DropDownSearchComponent],
 })

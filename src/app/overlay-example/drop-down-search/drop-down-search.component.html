@@ -12,7 +12,7 @@
 <ng-template
   cdkConnectedOverlay
   [cdkConnectedOverlayOrigin]="originOverlay"
-  [cdkConnectedOverlayOpen]="true"
+  [cdkConnectedOverlayOpen]="isPanelVisble$ | async"
 >
   <section class="dropdown-search-panel mat-elevation-z1">My panel</section>
 </ng-template>
