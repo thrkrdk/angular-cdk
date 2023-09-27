@@ -7,3 +7,9 @@ $input-width: 35rem;
 .drop-down-input {
   width: $input-width;
 }
+.drop-down-serch-panel {
+  width: $input-width;
+  min-height: 5rem;
+  padding: 1rem;
+  box-sizing: border-box;
+}
