@@ -18,4 +18,23 @@ $input-width: 35rem;
   min-height: 5rem;
   padding: 1rem;
   box-sizing: border-box;
+
+  &_controls {
+    display: flex;
+    margin: -1rem -1rem 0 -1rem;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+}
+
+.result-item {
+  display: flex;
+  padding: 0.7rem;
+  box-sizing: border-box;
+  align-items: center;
+
+  span {
+    margin: 0 1rem;
+    flex-grow: 1;
+  }
 }
