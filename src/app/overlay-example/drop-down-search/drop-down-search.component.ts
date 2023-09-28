@@ -20,6 +20,10 @@ import {
 } from '@angular/cdk/overlay';
 import { FormControl } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle'; 
+
+import {ESCAPE} from '@angular/cdk/keycodes';
+
+
 export interface State {
   flag: string;
   name: string;
@@ -76,13 +80,22 @@ export class DropDownSearchComponent implements OnInit {
   private isPanelVisible$: Observable<boolean>;
   private isPanelHidden$: Observable<boolean>;
 
+  private escPressed$: Observable<KeyboardEvent>;
+
   constructor(
     private focusMonitor: FocusMonitor
   ) {}
 
   ngOnInit(): void {
-    this.isPanelHidden$ =   this.connectedOverlay.backdropClick .pipe(map(()=>false));
+    // this.connectedOverlay.overlayKeydown.subscribe(console.log); // bunu göster kaldır
+    this.escPressed$ = this.connectedOverlay.overlayKeydown.pipe(
+      filter(( { keyCode } )=> keyCode  === ESCAPE));
+      this.isPanelHidden$ = merge(
+        this.escPressed$,
+        this.connectedOverlay.backdropClick
+      ).pipe(map(() => false));
 
+       
     this.isPanelVisible$ = this.focusMonitor.monitor(this.inputEl).pipe(
       filter((focused) => !!focused),
       map(()=>true)
