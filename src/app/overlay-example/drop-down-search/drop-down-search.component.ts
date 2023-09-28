@@ -16,7 +16,7 @@ import {
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { MatInput } from '@angular/material/input';
 import {
-  CdkConnectedOverlay,
+  CdkConnectedOverlay, ConnectedPosition,
 } from '@angular/cdk/overlay';
 import { FormControl } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle'; 
@@ -68,6 +68,8 @@ export class DropDownSearchComponent implements OnInit {
   stateCtrl = new FormControl();
   filteredStates$: Observable<State[]>;
   isCaseSensitive: boolean = false; 
+
+  position: ConnectedPosition[];
 
   @ViewChild(MatInput, { read: ElementRef, static: true })
   private inputEl: ElementRef;
