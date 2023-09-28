@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { OverlayExampleModule } from './overlay-example/overlay-example.module';
 import { NgModule } from '@angular/core';
+import {LayoutModule} from '@angular/cdk/layout'
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,6 +17,7 @@ import { NgModule } from '@angular/core';
     MatToolbarModule,
     OverlayExampleModule,
     MatButtonModule,
+    LayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent],
