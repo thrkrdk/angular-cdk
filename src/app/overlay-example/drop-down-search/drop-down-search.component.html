@@ -18,6 +18,7 @@
 <ng-template
   cdkConnectedOverlay
   cdkConnectedOverlayHasBackdrop
+  [cdkConnectedOverlayScrollStrategy]="scrollStagety"
   [cdkConnectedOverlayOrigin]="originOverlay"
   [cdkConnectedOverlayOpen]="showPanel$ | async"
   [cdkConnectedOverlayPositions]="position"

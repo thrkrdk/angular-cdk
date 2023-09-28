@@ -16,7 +16,7 @@ import {
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { MatInput } from '@angular/material/input';
 import {
-  CdkConnectedOverlay, ConnectedPosition,
+  CdkConnectedOverlay, ConnectedPosition, ScrollStrategy, ScrollStrategyOptions,
 } from '@angular/cdk/overlay';
 import { FormControl } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle'; 
@@ -73,14 +73,14 @@ export class DropDownSearchComponent implements OnInit {
     {
       originX:'center',
       originY:'bottom',
-      overlayX:'start',
+      overlayX:'center',
       overlayY:'top',
       offsetY:-21
     },
     {
-      originX:'start',
+      originX:'center',
       originY:'top',
-      overlayX:'start',
+      overlayX:'center',
       overlayY:'bottom',
       panelClass :'no-enough-space-at-bottom'
     }
@@ -95,11 +95,25 @@ export class DropDownSearchComponent implements OnInit {
   private isPanelVisible$: Observable<boolean>;
   private isPanelHidden$: Observable<boolean>;
 
+  scrollStagety: ScrollStrategy; // bu git template tanımla
+
   constructor(
-    private focusMonitor: FocusMonitor
+    private focusMonitor: FocusMonitor,
+    private scrollStrageties: ScrollStrategyOptions
   ) {}
 
   ngOnInit(): void { 
+
+    // this.scrollStagety = this.scrollStrageties.block(); // sayfadaki scroll işlemini bloklar
+    //   this.scrollStagety = this.scrollStrageties.close(); // scroll yapılınca overlay kapanır
+   
+   /* this.scrollStagety = this.scrollStrageties.close({
+        threshold: 100, //100 px'lik bir scrolldan sonra disable olur
+      }); // scroll yapılınca overlay kapanır
+    */
+    //  this.scrollStagety = this.scrollStrageties.noop(); // panel sabit kalır scroll yapılır
+      this.scrollStagety = this.scrollStrageties.reposition(); // varsayılan değerdir. ilk başta nasıl davranıyorsa öyle davranır
+
     this.isPanelHidden$ = merge(
       this.connectedOverlay.detach,
       this.connectedOverlay.backdropClick
