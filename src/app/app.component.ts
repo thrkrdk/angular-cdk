@@ -17,9 +17,10 @@ export class AppComponent {
   openDialog() {
     const overlayRef = this.overlay.create({
       hasBackdrop: true,
+      positionStrategy: this.positionBuilder.global().centerHorizontally().centerVertically()
     });
     const dialogPortal = new ComponentPortal(DialogComponent);
     overlayRef.attach(dialogPortal);
-    
+    overlayRef.backdropClick().subscribe(()=> overlayRef.detach())
   }
 }
