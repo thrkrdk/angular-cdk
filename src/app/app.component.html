@@ -2,6 +2,13 @@
   <mat-toolbar-row>
     <span>Angular CDK Lessons</span>
     <button mat-button (click)="openDialog()">Open Dialog</button>
+    <div> Your Browser Is:</div>
+    <div [ngSwitch]="true">
+      <div *ngSwitchCase="platform.BLINK">Chrome</div>
+      <div *ngSwitchCase="platform.SAFARI">Safari</div>
+      <div *ngSwitchCase="platform.EDGE">Edge</div>
+      <div *ngSwitchDefault>Undefined Browser</div>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
 <main class="content">

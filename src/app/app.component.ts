@@ -2,6 +2,7 @@ import { Overlay, OverlayPositionBuilder } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Component } from '@angular/core';
 import { DialogComponent } from './overlay-example/dialog/dialog.component';
+import { Platform } from '@angular/cdk/platform';
 
 @Component({
   selector: 'app-root',
@@ -12,15 +13,19 @@ export class AppComponent {
   title = 'angular-cdk-lessons';
   constructor(
     private overlay: Overlay,
-    private positionBuilder: OverlayPositionBuilder
+    private positionBuilder: OverlayPositionBuilder,
+    public platform: Platform
   ) {}
   openDialog() {
     const overlayRef = this.overlay.create({
       hasBackdrop: true,
-      positionStrategy: this.positionBuilder.global().centerHorizontally().centerVertically()
+      positionStrategy: this.positionBuilder
+        .global()
+        .centerHorizontally()
+        .centerVertically(),
     });
     const dialogPortal = new ComponentPortal(DialogComponent);
     overlayRef.attach(dialogPortal);
-    overlayRef.backdropClick().subscribe(()=> overlayRef.detach())
+    overlayRef.backdropClick().subscribe(() => overlayRef.detach());
   }
 }
