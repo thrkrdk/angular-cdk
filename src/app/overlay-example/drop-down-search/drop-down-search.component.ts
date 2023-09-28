@@ -69,7 +69,14 @@ export class DropDownSearchComponent implements OnInit {
   filteredStates$: Observable<State[]>;
   isCaseSensitive: boolean = false; 
 
-  position: ConnectedPosition[];
+  position: ConnectedPosition[] = [
+    {
+      originX:'start',
+      originY:'bottom',
+      overlayX:'start',
+      overlayY:'top'
+    }
+  ];
 
   @ViewChild(MatInput, { read: ElementRef, static: true })
   private inputEl: ElementRef;
