@@ -31,7 +31,6 @@ export interface State {
   selector: 'app-drop-down-search',
   templateUrl: './drop-down-search.component.html',
   styleUrls: ['./drop-down-search.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DropDownSearchComponent implements OnInit {
   showPanel$: Observable<boolean>;
@@ -73,14 +72,14 @@ export class DropDownSearchComponent implements OnInit {
     {
       originX:'center',
       originY:'bottom',
-      overlayX:'start',
+      overlayX:'center',
       overlayY:'top',
       offsetY:-21
     },
     {
-      originX:'start',
+      originX:'center',
       originY:'top',
-      overlayX:'start',
+      overlayX:'center',
       overlayY:'bottom',
       panelClass :'no-enough-space-at-bottom'
     }
