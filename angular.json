@@ -92,7 +92,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -113,7 +112,7 @@
                   "maximumWarning": "20%",
                   "maximumError": "10kb",
                   "name": "config.js",
-                  "baselin":"4kb"
+                  "baseline":"4kb"
                 }
               ]
             }
@@ -174,12 +173,11 @@
       }
     }
   },
-  "defaultProject": "angular-cdk-lessons",
   "cli": {
     "analytics": false,
     "packageManager": "npm",
     "cache": {
-      "enabled": "true",
+      "enabled": true,
       "environment": "all",
       "path": "tmp/cache/.angular"
     }

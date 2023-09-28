@@ -12,9 +12,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDividerModule } from '@angular/material/divider';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
-  declarations: [DropDownSearchComponent],
+  declarations: [DropDownSearchComponent, DialogComponent],
   imports: [
     CommonModule,
     MatInputModule,
