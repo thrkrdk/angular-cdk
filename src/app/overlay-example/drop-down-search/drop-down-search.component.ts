@@ -6,21 +6,18 @@ import {
   ElementRef,
 } from '@angular/core';
 import { Observable, merge, iif, EMPTY } from 'rxjs';
-import {
-  map,
-  filter,
-  startWith,
-  switchMap,
-  delay,
-} from 'rxjs/operators';
+import { map, filter, startWith, switchMap, delay } from 'rxjs/operators';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { MatInput } from '@angular/material/input';
 import {
-  CdkConnectedOverlay, ConnectedPosition, ScrollStrategy, ScrollStrategyOptions,
+  CdkConnectedOverlay,
+  ConnectedPosition,
+  OverlayRef,
+  ScrollStrategy,
+  ScrollStrategyOptions,
 } from '@angular/cdk/overlay';
 import { FormControl } from '@angular/forms';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle'; 
-
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 export interface State {
   flag: string;
@@ -36,54 +33,48 @@ export interface State {
 export class DropDownSearchComponent implements OnInit {
   showPanel$: Observable<boolean>;
 
-  
   states: State[] = [
     {
       name: 'Ankara',
       population: '5.663M',
-      flag:
-        'https://upload.wikimedia.org/wikipedia/tr/a/a1/Ankara_Büyükşehir_Belediyesi_logosu.png',
+      flag: 'https://upload.wikimedia.org/wikipedia/tr/a/a1/Ankara_Büyükşehir_Belediyesi_logosu.png',
     },
     {
       name: 'İstanbul',
-      population: '15.46M', 
-      flag:
-        'https://upload.wikimedia.org/wikipedia/tr/2/24/Ibb_amblem.png',
+      population: '15.46M',
+      flag: 'https://upload.wikimedia.org/wikipedia/tr/2/24/Ibb_amblem.png',
     },
     {
       name: 'Adana',
       population: '1.769M',
-      flag:
-        'https://upload.wikimedia.org/wikipedia/tr/f/ff/Adana_Büyükşehir_Belediyesi_logo.png',
+      flag: 'https://upload.wikimedia.org/wikipedia/tr/f/ff/Adana_Büyükşehir_Belediyesi_logo.png',
     },
     {
       name: 'İzmir',
       population: '4.367K',
-      flag:
-        'https://upload.wikimedia.org/wikipedia/tr/d/df/İzmir_Büyükşehir_Belediyespor_logo.png',
+      flag: 'https://upload.wikimedia.org/wikipedia/tr/d/df/İzmir_Büyükşehir_Belediyespor_logo.png',
     },
   ];
 
-  
   stateCtrl = new FormControl();
   filteredStates$: Observable<State[]>;
-  isCaseSensitive: boolean = false; 
+  isCaseSensitive: boolean = false;
 
   position: ConnectedPosition[] = [
     {
-      originX:'center',
-      originY:'bottom',
-      overlayX:'center',
-      overlayY:'top',
-      offsetY:-21
+      originX: 'center',
+      originY: 'bottom',
+      overlayX: 'center',
+      overlayY: 'top',
+      offsetY: -21,
     },
     {
-      originX:'center',
-      originY:'top',
-      overlayX:'center',
-      overlayY:'bottom',
-      panelClass :'no-enough-space-at-bottom'
-    }
+      originX: 'center',
+      originY: 'top',
+      overlayX: 'center',
+      overlayY: 'bottom',
+      panelClass: 'no-enough-space-at-bottom',
+    },
   ];
 
   @ViewChild(MatInput, { read: ElementRef, static: true })
@@ -102,17 +93,16 @@ export class DropDownSearchComponent implements OnInit {
     private scrollStrageties: ScrollStrategyOptions
   ) {}
 
-  ngOnInit(): void { 
-
+  ngOnInit(): void {
     // this.scrollStagety = this.scrollStrageties.block(); // sayfadaki scroll işlemini bloklar
     //   this.scrollStagety = this.scrollStrageties.close(); // scroll yapılınca overlay kapanır
-   
-   /* this.scrollStagety = this.scrollStrageties.close({
+
+    /* this.scrollStagety = this.scrollStrageties.close({
         threshold: 100, //100 px'lik bir scrolldan sonra disable olur
       }); // scroll yapılınca overlay kapanır
     */
     //  this.scrollStagety = this.scrollStrageties.noop(); // panel sabit kalır scroll yapılır
-      this.scrollStagety = this.scrollStrageties.reposition(); // varsayılan değerdir. ilk başta nasıl davranıyorsa öyle davranır
+    this.scrollStagety = new ConfirmScrollStragety(this.inputEl); // varsayılan değerdir. ilk başta nasıl davranıyorsa öyle davranır
 
     this.isPanelHidden$ = merge(
       this.connectedOverlay.detach,
@@ -121,9 +111,8 @@ export class DropDownSearchComponent implements OnInit {
 
     this.isPanelVisible$ = this.focusMonitor.monitor(this.inputEl).pipe(
       filter((focused) => !!focused),
-      map(()=>true)
+      map(() => true)
     );
-
 
     this.showPanel$ = merge(this.isPanelHidden$, this.isPanelVisible$);
 
@@ -150,3 +139,26 @@ export class DropDownSearchComponent implements OnInit {
   }
 }
 
+class ConfirmScrollStragety implements ScrollStrategy {
+  _overlay: OverlayRef;
+  constructor(private inputRef: ElementRef) {}
+
+  attach(overlayRef: OverlayRef) {
+    this._overlay = overlayRef;
+  }
+
+  enable() {
+    document.addEventListener('scroll', this.scrollListener);
+  }
+  disable() {
+    document.removeEventListener('scroll', this.scrollListener);
+  }
+  private scrollListener = () => {
+    if (confirm('The Overlay Will Be Closed. Are You OK Wiht That? ')) {
+      this._overlay.detach();
+      this.inputRef.nativeElement.blur();
+      return;
+    }
+    this._overlay.updatePosition();
+  };
+}
