@@ -71,10 +71,18 @@ export class DropDownSearchComponent implements OnInit {
 
   position: ConnectedPosition[] = [
     {
-      originX:'start',
+      originX:'center',
       originY:'bottom',
       overlayX:'start',
-      overlayY:'top'
+      overlayY:'top',
+      offsetY:-21
+    },
+    {
+      originX:'start',
+      originY:'top',
+      overlayX:'start',
+      overlayY:'bottom',
+      panelClass :'no-enough-space-at-bottom'
     }
   ];
 
